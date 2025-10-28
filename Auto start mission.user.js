@@ -7,6 +7,8 @@
 // @match        https://www.reddit.com/r/SwordAndSupperGame/comments/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        window.onurlchange
+// @updateURL    https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Auto%20start%20mission.user.js
+// @downloadURL  https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Auto%20start%20mission.user.js
 // ==/UserScript==
 
 (function() {
