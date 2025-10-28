@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Auto start mission
 // @namespace    https://github.com/NDR0216/
-// @version      0.1
-// @description  automatically click "Start Misssion"
+// @version      0.2
+// @description  automatically click "Start Mission"
 // @author       NDR0216
 // @match        https://www.reddit.com/r/SwordAndSupperGame/comments/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
@@ -18,13 +18,12 @@
     let intervalId;
 
     function clickButton() {
-        const start = (document.querySelector('shreddit-devvit-ui-loader')
-                     ?.shadowRoot?.querySelector("devvit-surface")
-                     ?.shadowRoot?.querySelector("devvit-blocks-renderer")
-                     ?.shadowRoot?.querySelector("div>div>div"));
-        if (start) {
-            start.click();
+        document.querySelector("shreddit-devvit-ui-loader")
+            ?.shadowRoot?.querySelector("devvit-surface")
+            ?.shadowRoot?.querySelector("devvit-blocks-renderer")
+            ?.shadowRoot?.querySelector("div>div>div")?.click();
 
+        if (document.querySelector('#devvit-web-view-dialog')) {
             clearInterval(intervalId);
             // release our intervalId from the variable
             intervalId = null;
