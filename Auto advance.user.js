@@ -7,6 +7,8 @@
 // @match        https://cabbageidle-eimoap-0-0-50-webview.devvit.net/index.html?*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        none
+// @updateURL    https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Auto%20advance.user.js
+// @downloadURL  https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Auto%20advance.user.js
 // ==/UserScript==
 
 (function() {
