@@ -7,6 +7,8 @@
 // @match        https://*.devvit.net/index.html?*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        none
+// @updateURL    https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Tag%20Mission.user.js
+// @downloadURL  https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Tag%20Mission.user.js
 // ==/UserScript==
 
 (function() {
