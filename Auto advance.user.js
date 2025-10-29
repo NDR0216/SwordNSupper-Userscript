@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.1.1
+// @version      0.1.2
 // @description  automatically click advance
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -68,8 +68,6 @@
             window.addEventListener("message", (event) => {
                 if (event.data.data.message.type == "recentMissions") {
                     if (event.data.data.message.data.recentMissions.length == 0) {
-                        console.log(intervalId);
-
                         clearInterval(intervalId);
                         // release our intervalId from the variable
                         intervalId = null;
