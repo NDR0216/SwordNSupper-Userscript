@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.1
+// @version      0.1.1
 // @description  automatically click advance
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -54,13 +54,8 @@
             const end = document.querySelectorAll(".end-mission-button");
             if (end.length) {
                 end[end.length-1].click();
-
-                clearInterval(intervalId);
-                // release our intervalId from the variable
-                intervalId = null;
             }
 
-            /*
             const link = document.querySelector(".mission-link");
             if (link) {
                 clearInterval(intervalId);
@@ -69,7 +64,18 @@
 
                 link.click();
             }
-            */
+
+            window.addEventListener("message", (event) => {
+                if (event.data.data.message.type == "recentMissions") {
+                    if (event.data.data.message.data.recentMissions.length == 0) {
+                        console.log(intervalId);
+
+                        clearInterval(intervalId);
+                        // release our intervalId from the variable
+                        intervalId = null;
+                    }
+                }
+            });
         }
 
         intervalId ??= setInterval(clickButton, 1000);
