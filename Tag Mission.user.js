@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tag Mission
 // @namespace    https://github.com/NDR0216/
-// @version      0.0
+// @version      0.0.1
 // @description  generate mission title in console
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -40,7 +40,7 @@
     }
 
     window.addEventListener("message", (event) => {
-        if (event.data.data?.message?.type == "initialData") {
+        if (event.data.data.message.type == "initialData") {
             console.log(event.data.data.message.data.missionMetadata.mission);
 
             const mission = event.data.data.message.data.missionMetadata.mission;
