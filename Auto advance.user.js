@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.0
+// @version      0.1
 // @description  automatically click advance
 // @author       NDR0216
-// @match        https://cabbageidle-eimoap-0-0-50-webview.devvit.net/index.html?*
+// @match        https://*.devvit.net/index.html?*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        none
 // @updateURL    https://github.com/NDR0216/SwordNSupper-Userscript/raw/refs/heads/main/Auto%20advance.user.js
@@ -15,60 +15,63 @@
     'use strict';
 
     // Your code here...
-    const speed = 10;
+    if (location.hostname.match(/cabbageidle-eimoap-.*-webview.devvit.net/)) {
+        const speed = 10;
 
-    const originalSetInterval = window.setInterval;
-    const originalSetTimeout = window.setTimeout;
-    const dateNow = Date.now;
-    const performanceNow = window.performance.now;
+        const originalSetInterval = window.setInterval;
+        const originalSetTimeout = window.setTimeout;
+        const dateNow = Date.now;
+        const performanceNow = window.performance.now;
 
-    window.setInterval = function(functionRef, delay=0, ...param) {
-        return originalSetInterval(functionRef, delay/speed, ...param);
-    }
-    window.setTimeout = function(functionRef, delay=0, ...param) {
-        return originalSetTimeout(functionRef, delay/speed, ...param);
-    }
-
-    let dateNowReference;
-    let performanceNowReference;
-    Date.now = function() {
-        dateNowReference ??= dateNow();
-        return dateNowReference + (dateNow()-dateNowReference) * speed;
-    };
-    window.performance.now = function() {
-      performanceNowReference ??= performanceNow.call(window.performance);
-      return performanceNowReference + (performanceNow.call(window.performance)-performanceNowReference) * speed;
-    };
-
-    localStorage.setItem("gameAnimationSpeed", speed.toString());
-
-    let intervalId;
-
-    function clickButton() {
-        document.querySelector(".advance-button")?.click();
-        document.querySelector(".skip-button")?.click();
-        document.querySelector(".skill-button")?.click();
-        document.querySelector(".continue-button")?.click();
-
-        const end = document.querySelectorAll(".end-mission-button");
-        if (end.length) {
-            end[end.length-1].click();
-
-            //clearInterval(intervalId);
-            // release our intervalId from the variable
-            //intervalId = null;
+        window.setInterval = function(functionRef, delay=0, ...param) {
+            return originalSetInterval(functionRef, delay/speed, ...param);
+        }
+        window.setTimeout = function(functionRef, delay=0, ...param) {
+            return originalSetTimeout(functionRef, delay/speed, ...param);
         }
 
-        const link = document.querySelector(".mission-link");
-        if (link) {
-            clearInterval(intervalId);
-            // release our intervalId from the variable
-            intervalId = null;
+        let dateNowReference;
+        let performanceNowReference;
+        Date.now = function() {
+            dateNowReference ??= dateNow();
+            return dateNowReference + (dateNow()-dateNowReference) * speed;
+        };
+        window.performance.now = function() {
+            performanceNowReference ??= performanceNow.call(window.performance);
+            return performanceNowReference + (performanceNow.call(window.performance)-performanceNowReference) * speed;
+        };
 
-            link.click();
+        localStorage.setItem("gameAnimationSpeed", speed.toString());
+
+        let intervalId;
+
+        function clickButton() {
+            document.querySelector(".advance-button")?.click();
+            document.querySelector(".skip-button")?.click();
+            document.querySelector(".skill-button")?.click();
+            document.querySelector(".continue-button")?.click();
+
+            const end = document.querySelectorAll(".end-mission-button");
+            if (end.length) {
+                end[end.length-1].click();
+
+                clearInterval(intervalId);
+                // release our intervalId from the variable
+                intervalId = null;
+            }
+
+            /*
+            const link = document.querySelector(".mission-link");
+            if (link) {
+                clearInterval(intervalId);
+                // release our intervalId from the variable
+                intervalId = null;
+
+                link.click();
+            }
+            */
         }
 
+        intervalId ??= setInterval(clickButton, 1000);
     }
-
-    intervalId ??= setInterval(clickButton, 1000);
 })();
