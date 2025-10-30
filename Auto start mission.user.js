@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto start mission
 // @namespace    https://github.com/NDR0216/
-// @version      0.2
+// @version      0.2.1
 // @description  automatically click "Start Mission"
 // @author       NDR0216
 // @match        https://www.reddit.com/r/SwordAndSupperGame/comments/*
@@ -22,6 +22,8 @@
             ?.shadowRoot?.querySelector("devvit-surface")
             ?.shadowRoot?.querySelector("devvit-blocks-renderer")
             ?.shadowRoot?.querySelector("div>div>div")?.click();
+
+        console.log("clicked");
 
         if (document.querySelector('#devvit-web-view-dialog')) {
             clearInterval(intervalId);
