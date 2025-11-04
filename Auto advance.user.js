@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.2
+// @version      0.2.1
 // @description  automatically click advance
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -20,27 +20,27 @@
     if (location.hostname.match(/cabbageidle-eimoap-.*-webview.devvit.net/)) {
         const speed = 10;
 
-        const originalSetInterval = window.setInterval;
-        const originalSetTimeout = window.setTimeout;
+        const originalSetInterval = setInterval;
+        const originalSetTimeout = setTimeout;
         const dateNow = Date.now;
-        const performanceNow = window.performance.now;
+        const performanceNow = performance.now;
 
-        window.setInterval = function(functionRef, delay=0, ...param) {
+        setInterval = function(functionRef, delay=0, ...param) {
             return originalSetInterval(functionRef, delay/speed, ...param);
         }
-        window.setTimeout = function(functionRef, delay=0, ...param) {
+        setTimeout = function(functionRef, delay=0, ...param) {
             return originalSetTimeout(functionRef, delay/speed, ...param);
         }
 
-        let dateNowReference;
+        let dateNowReference = 0;
         let performanceNowReference;
         Date.now = function() {
             dateNowReference ??= dateNow();
             return dateNowReference + (dateNow()-dateNowReference) * speed;
         };
-        window.performance.now = function() {
-            performanceNowReference ??= performanceNow.call(window.performance);
-            return performanceNowReference + (performanceNow.call(window.performance)-performanceNowReference) * speed;
+        performance.now = function() {
+            performanceNowReference ??= performanceNow.call(performance);
+            return performanceNowReference + (performanceNow.call(performance)-performanceNowReference) * speed;
         };
 
         localStorage.setItem("gameAnimationSpeed", speed.toString());
