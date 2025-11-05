@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.2.1
+// @version      0.3
 // @description  automatically click advance
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -15,33 +15,38 @@
     'use strict';
 
     // Your code here...
-    const NEXT_MISSION = true;
+    const NEXT_MISSION = false;
 
     if (location.hostname.match(/cabbageidle-eimoap-.*-webview.devvit.net/)) {
         const speed = 10;
 
-        const originalSetInterval = setInterval;
-        const originalSetTimeout = setTimeout;
-        const dateNow = Date.now;
-        const performanceNow = performance.now;
+        const _setInterval = setInterval;
+        const _setTimeout = setTimeout;
+        const _dateNow = Date.now;
+        const _performanceNow = performance.now;
+        const _requestAnimationFrame = requestAnimationFrame;
 
         setInterval = function(functionRef, delay=0, ...param) {
-            return originalSetInterval(functionRef, delay/speed, ...param);
+            return _setInterval(functionRef, delay/speed, ...param);
         }
         setTimeout = function(functionRef, delay=0, ...param) {
-            return originalSetTimeout(functionRef, delay/speed, ...param);
+            return _setTimeout(functionRef, delay/speed, ...param);
         }
 
-        let dateNowReference = 0;
+        let dateNowReference;
         let performanceNowReference;
         Date.now = function() {
-            dateNowReference ??= dateNow();
-            return dateNowReference + (dateNow()-dateNowReference) * speed;
+            dateNowReference ??= _dateNow();
+            return dateNowReference + (_dateNow()-dateNowReference) * speed;
         };
         performance.now = function() {
-            performanceNowReference ??= performanceNow.call(performance);
-            return performanceNowReference + (performanceNow.call(performance)-performanceNowReference) * speed;
+            performanceNowReference ??= _performanceNow.call(performance);
+            return performanceNowReference + (_performanceNow.call(performance)-performanceNowReference) * speed;
         };
+
+        requestAnimationFrame = function(callback) {
+            return _requestAnimationFrame((timestamp) => callback(performance.now()));
+        }
 
         localStorage.setItem("gameAnimationSpeed", speed.toString());
 
