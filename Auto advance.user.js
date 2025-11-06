@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto advance
 // @namespace    https://github.com/NDR0216/
-// @version      0.3
+// @version      0.3.1
 // @description  automatically click advance
 // @author       NDR0216
 // @match        https://*.devvit.net/index.html?*
@@ -86,6 +86,7 @@
                 const end = document.querySelectorAll(".end-mission-button");
                 if (end.length) {
                     end[end.length-1].click();
+
                     clearInterval(intervalId);
                     // release our intervalId from the variable
                     intervalId = null;
